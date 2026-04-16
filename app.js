@@ -209,8 +209,20 @@ function importExcel(e) {
     };
     reader.readAsArrayBuffer(file);
 }
-
 function resetForm() {
+    document.getElementById('dataForm').reset();
+    document.getElementById('dataId').value = "";
+    currentImage = "";
+    document.getElementById('previewImg').classList.add('d-none');
+    
+    // 👇 关键：加上容错判断，防止元素不存在时报错
+    const imageUrlEl = document.getElementById('imageUrl');
+    if (imageUrlEl) {
+        imageUrlEl.value = "";
+    }
+}
+
+/*function resetForm() {
     document.getElementById('dataId').value = "";
     document.getElementById('skc').value = "";
     document.getElementById('sku').value = "";
@@ -220,4 +232,4 @@ function resetForm() {
     document.getElementById('remark').value = "";
     currentImage = "";
     document.getElementById('previewImg').classList.add('d-none');
-}
+}*/
