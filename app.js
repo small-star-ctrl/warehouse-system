@@ -166,14 +166,21 @@ function batchDelete() {
 }
 
 function exportExcel() {
-    const exportData = dataList.map(item => ({
-        'SKC货号': item.skc,
-        'SKU货号': item.sku,
-        '中文名称': item.name,
-        '进货链接': item.link,
-        '商品图片': item.image,
-        '备注': item.remark
-    }));
+    const exportData = dataList.map(item => {
+        let imageData = item.image;
+        // 如果图片数据长度超过32000，判定为Base64，导出时清空
+        if (imageData && imageData.length > 32000) {
+            imageData = "";
+        }
+        return {
+            'SKC货号': item.skc,
+            'SKU货号': item.sku,
+            '中文名称': item.name,
+            '进货链接': item.link,
+            '商品图片': imageData,
+            '备注': item.remark
+        };
+    });
     const ws = XLSX.utils.json_to_sheet(exportData);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "仓库数据");
