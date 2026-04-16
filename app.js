@@ -59,7 +59,8 @@ function saveData() {
     }
 
     const id = document.getElementById('dataId').value;
-    const imageUrl = document.getElementById('imageUrl').value.trim();
+    const imageUrlInput = document.getElementById('imageUrl');
+    const imageUrl = imageUrlInput ? imageUrlInput.value.trim() : '';
 
     if (imageUrl) {
         currentImage = imageUrl;
